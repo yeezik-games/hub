@@ -81,7 +81,7 @@
       const root = this.attachShadow({ mode: "open" });
       root.innerHTML = `
         <style>${CSS}</style>
-        <a href="${HUB_URL}" part="link" aria-label="Yeezik Games Hub: ${testo}">
+        <a href="${HUB_URL}" target="_blank" rel="noopener" part="link" aria-label="Yeezik Games Hub: ${testo}">
           <span class="stars"></span>
           <span class="orbit" aria-hidden="true">
             <span class="ring b"></span><span class="planet"></span><span class="ring f"></span><span class="moon"></span>

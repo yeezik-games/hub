@@ -264,6 +264,8 @@
       const a = document.createElement("a");
       a.className = "planet";
       a.href = g.link;
+      a.target = "_blank";
+      a.rel = "noopener";
       a.style.setProperty("--c", g.colore || "#7a5cff");
       a.style.setProperty("--d", (-i * 2) + "s");
       a.innerHTML = `
