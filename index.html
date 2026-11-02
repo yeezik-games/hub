@@ -401,7 +401,7 @@
          nome        → titolo del riquadro
          descrizione → testo breve sotto il titolo
          icona       → una tra: "timer", "chat", "dado", "controller",
-                       "carte", "trofeo", "lampadina", "microfono", "domanda"
+                       "carte", "trofeo", "lampadina", "microfono", "domanda", "quadrante"
          link        → indirizzo del gioco
          colore      → colore principale (formato #RRGGBB)
          colore2     → secondo colore della sfumatura
@@ -416,12 +416,20 @@
         colore2: "#ff9f0a"
       },
       {
-        nome: "Quiplash",
+        nome: "Tappabuchi",
         descrizione: "Riempi i buchi con la risposta più divertente. Gli altri votano la migliore.",
         icona: "chat",
         link: "https://yeezikdev.github.io/quiplash",
         colore: "#2997ff",
         colore2: "#bf5af2"
+      },
+      {
+        nome: "Sintonia",
+        descrizione: "Dai un indizio su una scala tra due estremi: gli amici devono indovinare dove stai. Ognuno dal suo telefono.",
+        icona: "quadrante",
+        link: "https://yeezikdev.github.io/sintonia",
+        colore: "#30d158",
+        colore2: "#64d2ff"
       },
       // Esempio per un nuovo gioco:
       // {
@@ -442,6 +450,7 @@
 
     /* ---------- Da qui in giù non serve modificare ---------- */
     const ICONE = {
+      quadrante: '<path d="M3 17a9 9 0 0 1 18 0"/><path d="M12 17l4-6"/><circle cx="12" cy="17" r="1.3" fill="currentColor"/><path d="M5.5 12.5l1 .6M12 8v1.2M18.5 12.5l-1 .6"/>',
       timer: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5"/><path d="M9.5 2h5"/><path d="M12 2v3"/>',
       chat: '<path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.8-.8L3 21l1.9-5.1A8.4 8.4 0 0 1 12 3a8.5 8.5 0 0 1 9 8.5z"/><line x1="8" y1="11.5" x2="8.01" y2="11.5"/><line x1="12" y1="11.5" x2="12.01" y2="11.5"/><line x1="16" y1="11.5" x2="16.01" y2="11.5"/>',
       dado: '<rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.1" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.1" fill="currentColor"/><circle cx="12" cy="12" r="1.1" fill="currentColor"/>',
