@@ -2,393 +2,206 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#000000">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Yeezik Games Hub</title>
+  <meta name="description" content="Tutti i giochi di Yeezik in un unico posto: Intesa Vincente, Tappabuchi, Sintonia.">
+  <meta name="theme-color" content="#03040b">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #000;
-      --card: #101012;
-      --card-2: #18181b;
-      --text: #f5f5f7;
-      --secondary: #86868b;
-      --line: rgba(255, 255, 255, 0.08);
-      --blue: #2997ff;
+      color-scheme: dark;
+      --void: #03040b;
+      --ice: #bfe6ff;
+      --text: #f4f6ff;
+      --muted: #b9c6e6;
+      --faint: #7d8bb0;
+      --f-display: "Syncopate", "Arial Black", system-ui, sans-serif;
+      --f-body: "Manrope", system-ui, -apple-system, sans-serif;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
+    html, body { background: var(--void); }
     body {
       min-height: 100vh;
-      background: var(--bg);
       color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      -webkit-font-smoothing: antialiased;
+      font-family: var(--f-body);
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
 
-    /* Luce soffusa dietro al titolo */
-    .glow {
-      position: absolute;
-      top: -200px;
-      left: 50%;
-      width: 900px;
-      height: 600px;
-      transform: translateX(-50%);
-      background: radial-gradient(ellipse at center, rgba(120, 90, 255, 0.28), rgba(255, 55, 95, 0.12) 40%, transparent 70%);
-      filter: blur(40px);
-      pointer-events: none;
-      z-index: 0;
+    /* ---------- Sfondo ---------- */
+    .bg {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background:
+        radial-gradient(ellipse at 70% 20%, #1b1440, transparent 55%),
+        radial-gradient(ellipse at 15% 80%, #0d2a3d, transparent 50%),
+        var(--void);
     }
+    .bg canvas { width: 100%; height: 100%; display: block; }
 
     .wrap {
-      position: relative;
-      z-index: 1;
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 120px 20px 64px;
+      max-width: 1100px; margin: 0 auto;
+      padding-top: max(64px, calc(env(safe-area-inset-top) + 40px));
+      padding-bottom: max(48px, calc(env(safe-area-inset-bottom) + 32px));
+      padding-left: max(18px, env(safe-area-inset-left));
+      padding-right: max(18px, env(safe-area-inset-right));
     }
 
-    /* Intestazione */
-    header { text-align: center; margin-bottom: 96px; }
-
-    .badge {
-      display: inline-block;
-      padding: 6px 14px;
-      margin-bottom: 26px;
-      border-radius: 980px;
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--secondary);
-      font-size: .8rem;
-      font-weight: 500;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-    }
-
+    /* ---------- Testata ---------- */
+    header { display: grid; gap: 18px; justify-items: center; text-align: center; margin-bottom: 44px; }
+    .coord { font-family: var(--f-display); font-size: 10px; letter-spacing: .32em; color: var(--ice); opacity: .8; }
     h1 {
-      font-size: clamp(2.6rem, 10vw, 6.5rem);
-      font-weight: 800;
-      letter-spacing: -0.045em;
-      line-height: .95;
-      background: linear-gradient(180deg, #ffffff 30%, #8a8a94 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      font-family: var(--f-display); font-weight: 700;
+      font-size: clamp(30px, 7.4vw, 84px); line-height: 1; letter-spacing: .02em;
+      text-transform: uppercase; text-wrap: balance;
+      background: linear-gradient(180deg, #fff 30%, #8fbfff);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 0 30px rgba(120, 170, 255, .45));
     }
-    h1 .accent {
-      background: linear-gradient(90deg, #ff375f, #bf5af2 50%, #2997ff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .subtitle {
-      margin: 26px auto 0;
-      max-width: 520px;
-      font-size: clamp(1.1rem, 2.4vw, 1.35rem);
-      line-height: 1.4;
-      color: var(--secondary);
-    }
-
+    .sub { color: var(--muted); max-width: 42ch; line-height: 1.55; font-size: 16px; }
     .share-btn {
-      margin-top: 36px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 13px 26px;
-      border: none;
-      border-radius: 980px;
-      background: #f5f5f7;
-      color: #000;
-      font: inherit;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform .2s ease, background .2s ease;
+      display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
+      font-family: var(--f-display); font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--void); background: var(--ice); border: 0; border-radius: 999px; padding: 13px 22px;
+      box-shadow: 0 0 30px -4px rgba(191, 230, 255, .6);
+      transition: transform .2s, box-shadow .2s;
     }
-    .share-btn:hover { transform: scale(1.04); background: #fff; }
-    .share-btn svg { width: 17px; height: 17px; }
+    .share-btn:hover { transform: translateY(-2px); box-shadow: 0 0 44px 0 rgba(191, 230, 255, .75); }
+    .share-btn svg { width: 16px; height: 16px; }
 
-    /* Griglia giochi */
-    .section-title {
-      font-size: .8rem;
-      font-weight: 600;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--secondary);
-      margin-bottom: 20px;
+    /* ---------- Pianeti ---------- */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 10px; }
+    .planet {
+      display: grid; justify-items: center; align-content: start; gap: 14px; text-align: center;
+      padding: 24px 12px 30px; border-radius: 26px; transition: background .3s;
     }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      --accent: #2997ff;
-      --accent-2: #bf5af2;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      border-radius: 28px;
-      background: var(--card);
-      border: 1px solid var(--line);
-      overflow: hidden;
-      text-decoration: none;
-      color: inherit;
-      transition: transform .4s cubic-bezier(.2, .8, .2, 1), border-color .3s ease, box-shadow .4s ease;
-    }
-    .card:hover, .card:focus-visible {
-      transform: translateY(-6px);
-      border-color: color-mix(in srgb, var(--accent) 50%, transparent);
-      box-shadow: 0 30px 80px -30px var(--accent);
-      outline: none;
-    }
-
-    /* Parte visiva in alto */
-    .art {
-      position: relative;
-      height: 190px;
-      display: grid;
-      place-items: center;
+    .planet:hover, .planet:focus-visible { background: rgba(255, 255, 255, .04); outline: none; }
+    .planet:focus-visible { box-shadow: 0 0 0 2px var(--ice); }
+    .orbit { position: relative; width: 200px; height: 200px; display: grid; place-items: center; animation: hover 6s ease-in-out infinite; animation-delay: var(--d); }
+    @keyframes hover { 50% { transform: translateY(-12px); } }
+    .sphere {
+      position: relative; z-index: 1; width: 132px; aspect-ratio: 1; border-radius: 50%; overflow: hidden;
       background:
-        radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--accent) 85%, transparent), transparent 60%),
-        radial-gradient(circle at 80% 90%, color-mix(in srgb, var(--accent-2) 75%, transparent), transparent 60%),
-        #0a0a0c;
-      overflow: hidden;
+        radial-gradient(circle at 32% 30%, rgba(255, 255, 255, .55), transparent 35%),
+        radial-gradient(circle at 70% 75%, rgba(0, 0, 0, .65), transparent 60%),
+        var(--c);
+      box-shadow: 0 0 50px -6px var(--c), inset -14px -16px 40px rgba(0, 0, 0, .55);
+      transition: transform .4s;
     }
-    .art::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, transparent 40%, var(--card));
+    .sphere::before {
+      content: ""; position: absolute; inset: 0; mix-blend-mode: overlay;
+      background: repeating-linear-gradient(170deg, transparent 0 12px, rgba(255,255,255,.14) 12px 18px, transparent 18px 30px, rgba(0,0,0,.12) 30px 40px);
+      background-size: 200% 100%; animation: surface 9s linear infinite;
     }
-    .art svg {
-      position: relative;
-      z-index: 1;
-      width: 76px;
-      height: 76px;
-      color: #fff;
-      filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.4));
-      transition: transform .5s cubic-bezier(.2, .8, .2, 1);
-    }
-    .card:hover .art svg { transform: scale(1.12) rotate(-4deg); }
+    @keyframes surface { to { background-position: -200% 0; } }
+    .planet:hover .sphere { transform: scale(1.08); }
+    .ring { position: absolute; width: 200px; height: 56px; border-radius: 50%; border: 3px solid color-mix(in srgb, var(--c) 70%, #fff); transform: rotate(-18deg); opacity: .75; }
+    .ring.back { clip-path: inset(0 0 50% 0); z-index: 0; }
+    .ring.front { clip-path: inset(50% 0 0 0); z-index: 2; }
+    .moon { position: absolute; z-index: 3; width: 14px; height: 14px; border-radius: 50%; background: #dfe7ff; box-shadow: 0 0 12px #9cc4ff; offset-path: ellipse(96px 30px at 50% 50%); animation: moon 5s linear infinite; }
+    @supports not (offset-path: ellipse(1px 1px)) { .moon { display: none; } }
+    @keyframes moon { to { offset-distance: 100%; } }
+    .planet h2 { font-family: var(--f-display); font-weight: 700; font-size: 20px; letter-spacing: .04em; text-transform: uppercase; }
+    .planet p { color: var(--muted); line-height: 1.55; max-width: 30ch; }
+    .go { font-family: var(--f-display); font-size: 11px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; padding: 11px 20px; border: 1px solid rgba(191, 230, 255, .4); border-radius: 999px; color: var(--ice); transition: background .25s, color .25s; }
+    .planet:hover .go, .planet:focus-visible .go { background: var(--ice); color: var(--void); }
 
-    .body {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      padding: 8px 28px 28px;
-    }
+    /* Pianeta "in arrivo" */
+    .planet.soon { cursor: default; }
+    .planet.soon:hover { background: none; }
+    .planet.soon .sphere { background: transparent; box-shadow: none; overflow: visible; }
+    .planet.soon .sphere::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px dashed rgba(191, 230, 255, .35); animation: spin 40s linear infinite; }
+    .planet.soon .sphere::before { display: none; }
+    .planet.soon .plus { position: absolute; inset: 0; display: grid; place-items: center; font-size: 40px; font-weight: 300; color: var(--faint); }
+    .planet.soon h2 { color: var(--faint); font-size: 15px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    .card h2 {
-      font-size: 1.75rem;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      margin-bottom: 10px;
-    }
+    /* Icone animate */
+    .ico { position: absolute; inset: 0; margin: auto; width: 44px; height: 44px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; overflow: visible; filter: drop-shadow(0 2px 6px rgba(0,0,0,.5)); }
+    .ico .hand { transform-origin: 12px 13px; animation: spin 3s steps(12) infinite; }
+    .ico .dot { animation: typing 1.2s ease-in-out infinite; }
+    .ico .dot:nth-child(3) { animation-delay: .15s; } .ico .dot:nth-child(4) { animation-delay: .3s; }
+    .ico .needle { transform-origin: 12px 17px; animation: swing 2.6s ease-in-out infinite; }
+    @keyframes typing { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-2px); } }
+    @keyframes swing { 0%, 100% { transform: rotate(-55deg); } 50% { transform: rotate(55deg); } }
 
-    .card p {
-      color: var(--secondary);
-      font-size: 1rem;
-      line-height: 1.5;
-      flex: 1;
-    }
+    footer { margin-top: 40px; text-align: center; font-family: var(--f-display); font-size: 10px; letter-spacing: .24em; color: var(--faint); }
 
-    .play {
-      margin-top: 24px;
-      align-self: flex-start;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 10px 20px;
-      border-radius: 980px;
-      background: var(--card-2);
-      border: 1px solid var(--line);
-      font-size: .95rem;
-      font-weight: 600;
-      transition: background .3s ease, color .3s ease;
-    }
-    .card:hover .play { background: #f5f5f7; color: #000; }
+    /* ---------- Intro ---------- */
+    .intro { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; cursor: pointer; }
+    .hud { font-family: var(--f-display); text-align: center; color: var(--ice); letter-spacing: .3em; font-size: 11px; opacity: 0; padding: 0 16px; }
+    .hud b { display: block; font-size: clamp(26px, 7vw, 64px); letter-spacing: .04em; color: #fff; margin-top: 12px; }
+    .skip { position: absolute; bottom: calc(28px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--faint); white-space: nowrap; }
+    body.run .hud { animation: hudIn 1s ease-out 1.9s forwards; }
+    @keyframes hudIn { 0% { opacity: 0; transform: scale(.6); filter: blur(10px); } 100% { opacity: 1; transform: none; filter: none; } }
+    body.run .intro { animation: fadeOut .6s ease 3.2s forwards; }
+    @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+    body.run main { animation: arrive 1s cubic-bezier(.2, .8, .2, 1) 3.3s both; }
+    @keyframes arrive { from { opacity: 0; transform: scale(.92); } }
+    body.done .intro { display: none; }
 
-    /* Riquadro "prossimamente" */
-    .card.soon {
-      min-height: 360px;
-      border-style: dashed;
-      background: transparent;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      cursor: default;
-    }
-    .card.soon:hover { transform: none; box-shadow: none; border-color: var(--line); }
-    .card.soon svg { width: 40px; height: 40px; color: var(--secondary); margin-bottom: 14px; }
-    .card.soon h2 { font-size: 1.15rem; font-weight: 600; color: var(--secondary); margin: 0; }
+    /* ---------- Condividi ---------- */
+    .overlay { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 18px; background: rgba(3, 4, 11, .7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); opacity: 0; visibility: hidden; transition: opacity .25s, visibility .25s; }
+    .overlay.open { opacity: 1; visibility: visible; }
+    .sheet { position: relative; width: min(100%, 380px); display: grid; gap: 16px; justify-items: center; text-align: center; padding: 30px 24px 24px; border-radius: 28px; background: linear-gradient(180deg, #141a33, #0a0d1c); border: 1px solid rgba(191, 230, 255, .18); box-shadow: 0 30px 80px -20px rgba(0, 0, 0, .8), 0 0 60px -20px rgba(120, 170, 255, .5); transform: translateY(16px) scale(.97); transition: transform .3s cubic-bezier(.2, .9, .3, 1.2); }
+    .overlay.open .sheet { transform: none; }
+    .sheet h3 { font-family: var(--f-display); font-size: 15px; letter-spacing: .12em; text-transform: uppercase; }
+    .hint { color: var(--muted); font-size: 14px; }
+    .close { position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border-radius: 50%; border: 0; cursor: pointer; background: rgba(255, 255, 255, .08); color: var(--text); }
+    #qrcode { background: #fff; padding: 14px; border-radius: 18px; }
+    #qrcode img, #qrcode canvas { display: block; width: 210px !important; height: 210px !important; }
+    .copy-row { display: flex; gap: 8px; width: 100%; }
+    .copy-row input { flex: 1; min-width: 0; padding: 12px 14px; border-radius: 14px; border: 1px solid rgba(191, 230, 255, .2); background: rgba(255, 255, 255, .05); color: var(--text); font: 13px var(--f-body); }
+    .copy-row button { padding: 0 16px; border-radius: 14px; border: 0; cursor: pointer; background: var(--ice); color: var(--void); font-weight: 700; font-size: 13px; }
+    .native-share { width: 100%; padding: 12px; border-radius: 14px; cursor: pointer; background: transparent; color: var(--ice); border: 1px solid rgba(191, 230, 255, .3); font-weight: 600; }
+    .native-share[hidden] { display: none; }
 
-    footer {
-      margin-top: 96px;
-      padding-top: 24px;
-      border-top: 1px solid var(--line);
-      text-align: center;
-      color: var(--secondary);
-      font-size: .8rem;
-    }
-
-    /* Finestra condivisione */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.6);
-      -webkit-backdrop-filter: blur(8px);
-      backdrop-filter: blur(8px);
-      display: grid;
-      place-items: center;
-      padding: 16px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .25s ease;
-      z-index: 10;
-    }
-    .overlay.open { opacity: 1; pointer-events: auto; }
-
-    .sheet {
-      position: relative;
-      width: 100%;
-      max-width: 360px;
-      padding: 36px 24px 24px;
-      border-radius: 28px;
-      background: rgba(24, 24, 27, 0.92);
-      border: 1px solid var(--line);
-      -webkit-backdrop-filter: saturate(180%) blur(24px);
-      backdrop-filter: saturate(180%) blur(24px);
-      text-align: center;
-      transform: scale(.96);
-      transition: transform .3s cubic-bezier(.2, .8, .2, 1);
-    }
-    .overlay.open .sheet { transform: scale(1); }
-
-    .sheet h3 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
-    .sheet .hint { color: var(--secondary); font-size: .92rem; margin-bottom: 24px; }
-
-    .close {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: none;
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--secondary);
-      font-size: .95rem;
-      cursor: pointer;
-    }
-    .close:hover { background: rgba(255, 255, 255, 0.14); color: var(--text); }
-
-    #qrcode {
-      display: inline-block;
-      padding: 14px;
-      background: #fff;
-      border-radius: 18px;
-      margin-bottom: 24px;
-    }
-    #qrcode img, #qrcode canvas { display: block; width: 190px; height: 190px; }
-
-    .link-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 6px 6px 14px;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--line);
-    }
-    .link-row input {
-      flex: 1;
-      min-width: 0;
-      border: none;
-      background: none;
-      color: var(--text);
-      font: inherit;
-      font-size: .85rem;
-      outline: none;
-    }
-    .copy-btn {
-      flex-shrink: 0;
-      padding: 9px 16px;
-      border: none;
-      border-radius: 10px;
-      background: #f5f5f7;
-      color: #000;
-      font: inherit;
-      font-size: .85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background .2s ease;
-    }
-    .copy-btn.done { background: #30d158; }
-
-    .native-share {
-      display: none;
-      width: 100%;
-      margin-top: 10px;
-      padding: 13px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: none;
-      color: var(--text);
-      font: inherit;
-      font-size: .95rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .native-share:hover { background: rgba(255, 255, 255, 0.06); }
-
-    @media (max-width: 600px) {
-      .wrap { padding-top: 88px; }
-      header { margin-bottom: 64px; }
-      .art { height: 160px; }
-    }
+    :focus-visible { outline: 2px solid var(--ice); outline-offset: 3px; }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { transition: none !important; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; animation-delay: 0s !important; transition: none !important; }
+      .intro { display: none !important; }
     }
   </style>
 </head>
 <body>
-  <div class="glow"></div>
+  <div class="bg" aria-hidden="true"><canvas id="stars"></canvas></div>
 
-  <div class="wrap">
+  <div class="intro" id="intro" title="Tocca per saltare">
+    <div class="hud">Destinazione raggiunta<b>Yeezik System</b></div>
+    <span class="skip">Tocca per saltare</span>
+  </div>
+
+  <main class="wrap">
     <header>
-      <span class="badge">Party games</span>
-      <h1>YEEZIK<br><span class="accent">GAMES HUB</span></h1>
-      <p class="subtitle">Tutti i giochi in un unico posto. Scegli, invita gli amici e inizia la partita.</p>
+      <span class="coord" id="coord">SISTEMA YZK · PIANETI ABITATI</span>
+      <h1>Yeezik Games Hub</h1>
+      <p class="sub">Ogni pianeta è un gioco. Scegline uno e porta i tuoi amici in orbita.</p>
       <button class="share-btn" id="openShare" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
         Condividi
       </button>
     </header>
 
-    <p class="section-title">I giochi</p>
-    <main class="grid" id="grid"></main>
+    <div class="grid" id="grid"></div>
 
-    <footer>© <span id="year"></span> Yeezik</footer>
-  </div>
+    <footer>© <span id="year"></span> YEEZIK · FINE TRASMISSIONE</footer>
+  </main>
 
-  <!-- Finestra di condivisione -->
   <div class="overlay" id="shareOverlay" aria-hidden="true">
     <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="shareTitle">
       <button class="close" id="closeShare" type="button" aria-label="Chiudi">✕</button>
       <h3 id="shareTitle">Invita gli amici</h3>
       <p class="hint">Inquadra il codice o copia il link.</p>
       <div id="qrcode"></div>
-      <div class="link-row">
-        <input id="shareLink" type="text" readonly>
-        <button class="copy-btn" id="copyBtn" type="button">Copia</button>
+      <div class="copy-row">
+        <input id="shareLink" type="text" readonly aria-label="Link del sito">
+        <button id="copyBtn" type="button">Copia</button>
       </div>
-      <button class="native-share" id="nativeShare" type="button">Condividi con un'app…</button>
+      <button class="native-share" id="nativeShare" type="button" hidden>Condividi con un'app…</button>
     </div>
   </div>
 
@@ -396,15 +209,14 @@
   <script>
     /* =====================================================
        ELENCO GIOCHI
-       Per aggiungere un nuovo gioco copia un blocco { ... }
-       e incollalo in fondo alla lista, poi cambia i campi:
-         nome        → titolo del riquadro
-         descrizione → testo breve sotto il titolo
-         icona       → una tra: "timer", "chat", "dado", "controller",
-                       "carte", "trofeo", "lampadina", "microfono", "domanda", "quadrante"
+       Per aggiungere un gioco copia un blocco { ... },
+       incollalo in fondo alla lista e cambia i campi:
+         nome        → nome del pianeta
+         descrizione → testo breve sotto il nome
+         icona       → una tra: "timer", "chat", "quadrante",
+                       "dado", "carte", "trofeo", "microfono"
          link        → indirizzo del gioco
-         colore      → colore principale (formato #RRGGBB)
-         colore2     → secondo colore della sfumatura
+         colore      → colore del pianeta (formato #RRGGBB)
        ===================================================== */
     const GIOCHI = [
       {
@@ -412,37 +224,25 @@
         descrizione: "Indovina la parola dalle definizioni dei compagni di squadra, contro il tempo.",
         icona: "timer",
         link: "https://yeezikdev.github.io/intesa-vincente",
-        colore: "#ff375f",
-        colore2: "#ff9f0a"
+        colore: "#ff5a3d"
       },
       {
         nome: "Tappabuchi",
         descrizione: "Riempi i buchi con la risposta più divertente. Gli altri votano la migliore.",
         icona: "chat",
         link: "https://yeezikdev.github.io/quiplash",
-        colore: "#2997ff",
-        colore2: "#bf5af2"
+        colore: "#7a5cff"
       },
       {
         nome: "Sintonia",
-        descrizione: "Dai un indizio su una scala tra due estremi: gli amici devono indovinare dove stai. Ognuno dal suo telefono.",
+        descrizione: "Dai un indizio su una scala tra due estremi: gli amici devono indovinare dove stai.",
         icona: "quadrante",
         link: "https://yeezikdev.github.io/sintonia",
-        colore: "#30d158",
-        colore2: "#64d2ff"
+        colore: "#1fc8a8"
       },
-      // Esempio per un nuovo gioco:
-      // {
-      //   nome: "Nuovo Gioco",
-      //   descrizione: "Descrizione breve del gioco.",
-      //   icona: "dado",
-      //   link: "https://yeezikdev.github.io/nuovo-gioco",
-      //   colore: "#30d158",
-      //   colore2: "#64d2ff"
-      // },
     ];
 
-    // Mostra il riquadro "Nuovi giochi in arrivo" in fondo (true / false)
+    // Mostra il pianeta "Nuovi giochi in arrivo" in fondo (true / false)
     const MOSTRA_PROSSIMAMENTE = true;
 
     // Link che viene condiviso (cambialo qui se sposti la pagina)
@@ -450,53 +250,84 @@
 
     /* ---------- Da qui in giù non serve modificare ---------- */
     const ICONE = {
-      quadrante: '<path d="M3 17a9 9 0 0 1 18 0"/><path d="M12 17l4-6"/><circle cx="12" cy="17" r="1.3" fill="currentColor"/><path d="M5.5 12.5l1 .6M12 8v1.2M18.5 12.5l-1 .6"/>',
-      timer: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5"/><path d="M9.5 2h5"/><path d="M12 2v3"/>',
-      chat: '<path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.8-.8L3 21l1.9-5.1A8.4 8.4 0 0 1 12 3a8.5 8.5 0 0 1 9 8.5z"/><line x1="8" y1="11.5" x2="8.01" y2="11.5"/><line x1="12" y1="11.5" x2="12.01" y2="11.5"/><line x1="16" y1="11.5" x2="16.01" y2="11.5"/>',
-      dado: '<rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.1" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.1" fill="currentColor"/><circle cx="12" cy="12" r="1.1" fill="currentColor"/>',
-      controller: '<path d="M6 11h4M8 9v4"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="18" y1="10" x2="18.01" y2="10"/><path d="M17.3 5H6.7a4 4 0 0 0-4 3.6L2 15.4A3 3 0 0 0 7.2 18l1.6-2h6.4l1.6 2a3 3 0 0 0 5.2-2.6l-.7-6.8a4 4 0 0 0-4-3.6z"/>',
+      timer: '<circle cx="12" cy="13" r="8"/><path d="M9.5 2h5M12 2v3"/><path class="hand" d="M12 13V8.5"/>',
+      chat: '<path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.8-.8L3 21l1.9-5.1A8.4 8.4 0 0 1 12 3a8.5 8.5 0 0 1 9 8.5z"/><circle class="dot" cx="8" cy="11.5" r=".9" fill="#fff"/><circle class="dot" cx="12" cy="11.5" r=".9" fill="#fff"/><circle class="dot" cx="16" cy="11.5" r=".9" fill="#fff"/>',
+      quadrante: '<path d="M3 17a9 9 0 0 1 18 0"/><path d="M5.5 12.5l1 .6M12 8v1.2M18.5 12.5l-1 .6"/><path class="needle" d="M12 17V10"/><circle cx="12" cy="17" r="1.3" fill="#fff"/>',
+      dado: '<rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.1" fill="#fff"/><circle cx="15.5" cy="15.5" r="1.1" fill="#fff"/><circle cx="12" cy="12" r="1.1" fill="#fff"/>',
       carte: '<rect x="2" y="6" width="12" height="16" rx="2" transform="rotate(-8 8 14)"/><rect x="10" y="3" width="12" height="16" rx="2" transform="rotate(8 16 11)"/>',
       trofeo: '<path d="M8 21h8M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/>',
-      lampadina: '<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/>',
-      microfono: '<rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v5M8 22h8"/>',
-      domanda: '<circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>'
+      microfono: '<rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v4M8 21h8"/>'
     };
 
-    function svgIcona(nome) {
-      return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ICONE[nome] || ICONE.controller}</svg>`;
-    }
-
     const grid = document.getElementById("grid");
-
-    GIOCHI.forEach(g => {
+    GIOCHI.forEach((g, i) => {
       const a = document.createElement("a");
-      a.className = "card";
+      a.className = "planet";
       a.href = g.link;
-      a.style.setProperty("--accent", g.colore || "#2997ff");
-      a.style.setProperty("--accent-2", g.colore2 || g.colore || "#bf5af2");
+      a.style.setProperty("--c", g.colore || "#7a5cff");
+      a.style.setProperty("--d", (-i * 2) + "s");
       a.innerHTML = `
-        <div class="art">${svgIcona(g.icona)}</div>
-        <div class="body">
-          <h2></h2>
-          <p></p>
-          <span class="play">Gioca ora
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </span>
+        <div class="orbit">
+          <div class="ring back"></div>
+          <div class="sphere"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true">${ICONE[g.icona] || ICONE.dado}</svg></div>
+          <div class="ring front"></div>
+          <div class="moon" style="animation-delay:${-i * 1.7}s"></div>
         </div>
-      `;
+        <h2></h2><p></p><span class="go">Atterra</span>`;
       a.querySelector("h2").textContent = g.nome;
       a.querySelector("p").textContent = g.descrizione || "";
       grid.appendChild(a);
     });
-
     if (MOSTRA_PROSSIMAMENTE) {
-      const soon = document.createElement("div");
-      soon.className = "card soon";
-      soon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><h2>Nuovi giochi in arrivo</h2>`;
-      grid.appendChild(soon);
+      const s = document.createElement("div");
+      s.className = "planet soon";
+      s.innerHTML = `<div class="orbit"><div class="sphere"><span class="plus">+</span></div></div><h2>Nuovi pianeti in arrivo</h2>`;
+      grid.appendChild(s);
+    }
+    document.getElementById("coord").textContent = `SISTEMA YZK · ${GIOCHI.length} PIANETI ABITATI`;
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    /* ---------- Stelle + salto nell'iperspazio ---------- */
+    const cv = document.getElementById("stars"), ctx = cv.getContext("2d");
+    let W, H, warpStart = 0;
+    const stars = Array.from({ length: 420 }, () => ({ x: (Math.random() - .5) * 2, y: (Math.random() - .5) * 2, z: Math.random() }));
+    function size() { const d = Math.min(devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0); }
+    addEventListener("resize", size); size();
+    function frame(now) {
+      const t = (now - warpStart) / 1000;
+      const speed = warpStart
+        ? (t < .3 ? .002 : t < 1.9 ? .002 + Math.pow(Math.min((t - .3) / 1, 1), 2) * .05 : Math.max(.0012, .052 * Math.exp(-(t - 1.9) * 3)))
+        : .0012;
+      const streak = Math.min(speed * 14, .7);
+      ctx.clearRect(0, 0, W, H);
+      const cx = W / 2, cy = H / 2, f = Math.max(W, H) * .5;
+      for (const s of stars) {
+        const pz = s.z; s.z -= speed;
+        if (s.z <= .02) { s.z = 1; s.x = (Math.random() - .5) * 2; s.y = (Math.random() - .5) * 2; continue; }
+        const sx = cx + s.x / s.z * f, sy = cy + s.y / s.z * f;
+        const tz = Math.min(pz + streak, 1), tx = cx + s.x / tz * f, ty = cy + s.y / tz * f;
+        ctx.strokeStyle = `rgba(${200 + 55 * (1 - s.z) | 0},220,255,${Math.min(1, (1 - s.z) * 1.4)})`;
+        ctx.lineWidth = Math.max(.6, (1 - s.z) * 2.4);
+        ctx.beginPath(); ctx.moveTo(tx, ty); ctx.lineTo(sx + .1, sy + .1); ctx.stroke();
+      }
+      requestAnimationFrame(frame);
     }
 
-    document.getElementById("year").textContent = new Date().getFullYear();
+    /* ---------- Intro (una volta per visita) ---------- */
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let giaVista = false;
+    try { giaVista = sessionStorage.getItem("introVista") === "1"; } catch (e) {}
+    if (giaVista || reduce) {
+      document.body.classList.add("done");
+    } else {
+      document.body.classList.add("run");
+      warpStart = performance.now();
+      try { sessionStorage.setItem("introVista", "1"); } catch (e) {}
+    }
+    document.getElementById("intro").addEventListener("click", () => {
+      document.body.classList.remove("run"); document.body.classList.add("done"); warpStart = 0;
+    });
+    requestAnimationFrame(frame);
 
     /* ---------- Condivisione ---------- */
     const overlay = document.getElementById("shareOverlay");
@@ -504,59 +335,36 @@
     const copyBtn = document.getElementById("copyBtn");
     const nativeBtn = document.getElementById("nativeShare");
     let qrCreato = false;
-
     linkInput.value = LINK_CONDIVISIONE;
 
     function apriCondividi() {
       if (!qrCreato && window.QRCode) {
-        new QRCode(document.getElementById("qrcode"), {
-          text: LINK_CONDIVISIONE,
-          width: 380,
-          height: 380,
-          colorDark: "#000000",
-          colorLight: "#ffffff",
-          correctLevel: QRCode.CorrectLevel.M
-        });
+        new QRCode(document.getElementById("qrcode"), { text: LINK_CONDIVISIONE, width: 360, height: 360, colorDark: "#03040b", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M });
         qrCreato = true;
       }
       overlay.classList.add("open");
       overlay.setAttribute("aria-hidden", "false");
     }
-
     function chiudiCondividi() {
       overlay.classList.remove("open");
       overlay.setAttribute("aria-hidden", "true");
     }
-
     document.getElementById("openShare").addEventListener("click", apriCondividi);
     document.getElementById("closeShare").addEventListener("click", chiudiCondividi);
     overlay.addEventListener("click", e => { if (e.target === overlay) chiudiCondividi(); });
     document.addEventListener("keydown", e => { if (e.key === "Escape") chiudiCondividi(); });
 
     copyBtn.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(LINK_CONDIVISIONE);
-      } catch {
-        linkInput.select();
-        document.execCommand("copy");
-      }
-      copyBtn.textContent = "Copiato";
-      copyBtn.classList.add("done");
-      setTimeout(() => {
-        copyBtn.textContent = "Copia";
-        copyBtn.classList.remove("done");
-      }, 2000);
+      try { await navigator.clipboard.writeText(LINK_CONDIVISIONE); }
+      catch (e) { linkInput.select(); document.execCommand("copy"); }
+      copyBtn.textContent = "Copiato!";
+      setTimeout(() => copyBtn.textContent = "Copia", 1800);
     });
 
-    // Su telefono compare anche il pulsante per condividere su WhatsApp, Telegram, ecc.
     if (navigator.share) {
-      nativeBtn.style.display = "block";
+      nativeBtn.hidden = false;
       nativeBtn.addEventListener("click", () => {
-        navigator.share({
-          title: "Yeezik Games Hub",
-          text: "Vieni a giocare con me!",
-          url: LINK_CONDIVISIONE
-        }).catch(() => {});
+        navigator.share({ title: "Yeezik Games Hub", text: "Giochiamo insieme!", url: LINK_CONDIVISIONE }).catch(() => {});
       });
     }
   </script>
