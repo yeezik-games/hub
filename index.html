@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Yeezik Games Hub</title>
-  <meta name="description" content="Tutti i giochi di Yeezik in un unico posto: Intesa Vincente, Tappabuchi, Sintonia.">
+  <meta name="description" content="Tutti i giochi di Yeezik in un unico posto: Intesa Vincente, Tappabuchi, Sintonia, The Game.">
   <meta name="theme-color" content="#03040b">
   <link rel="icon" href="favicon-32.png?v=2" sizes="32x32" type="image/png">
   <link rel="icon" href="favicon-48.png?v=2" sizes="48x48" type="image/png">
@@ -117,6 +117,40 @@
     .go { font-family: var(--f-display); font-size: 11px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; padding: 11px 20px; border: 1px solid rgba(191, 230, 255, .4); border-radius: 999px; color: var(--ice); transition: background .25s, color .25s; }
     .planet:hover .go, .planet:focus-visible .go { background: var(--ice); color: var(--void); }
 
+    /* ---------- Pianeta di fuoco (stile: "fuoco") ---------- */
+    .planet.fire .sphere {
+      background:
+        radial-gradient(circle at 32% 30%, rgba(255, 236, 190, .7), transparent 32%),
+        radial-gradient(circle at 72% 76%, rgba(40, 0, 0, .75), transparent 58%),
+        radial-gradient(circle at 50% 50%, #ffc061 0%, #ff6a1f 38%, #c3260d 68%, #5a0b05 100%);
+      box-shadow: 0 0 60px 2px rgba(255, 90, 31, .85), 0 0 120px -6px rgba(255, 179, 71, .55), inset -14px -16px 40px rgba(40, 0, 0, .7);
+    }
+    .planet.fire .sphere::before {
+      mix-blend-mode: multiply; opacity: .5;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='264' height='132'%3E%3Cfilter id='l'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.035 .06' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .02 0 0 0 0 0 0 0 0 -2.6 1.5'/%3E%3C/filter%3E%3Crect width='264' height='132' filter='url(%23l)'/%3E%3C/svg%3E");
+      background-size: 264px 132px; animation: lava 14s linear infinite;
+    }
+    @keyframes lava { to { background-position: -264px 0; } }
+    .planet.fire .sphere::after {
+      content: ""; position: absolute; inset: 0; border-radius: 50%;
+      background: radial-gradient(circle at 50% 50%, transparent 55%, rgba(255, 200, 90, .35) 72%, transparent 76%);
+      animation: pulsefire 2.6s ease-in-out infinite;
+    }
+    @keyframes pulsefire { 50% { opacity: .35; } }
+    .planet.fire .corona {
+      position: absolute; z-index: 0; width: 186px; aspect-ratio: 1; border-radius: 50%;
+      background: conic-gradient(from 0deg, transparent 0 4%, rgba(255,120,30,.75) 7%, transparent 11% 18%, rgba(255,180,70,.7) 21%, transparent 26% 33%, rgba(255,90,31,.8) 37%, transparent 42% 50%, rgba(255,170,60,.7) 54%, transparent 59% 66%, rgba(255,100,30,.8) 70%, transparent 75% 83%, rgba(255,190,80,.7) 87%, transparent 92%);
+      -webkit-mask: radial-gradient(circle, transparent 30%, #000 40%, transparent 71%); mask: radial-gradient(circle, transparent 30%, #000 40%, transparent 71%);
+      filter: blur(3px) brightness(1.3); animation: spin 9s linear infinite;
+    }
+    .planet.fire .corona.c2 { width: 204px; opacity: .75; animation-duration: 14s; animation-direction: reverse; filter: blur(8px); }
+    .planet.fire .ring { border-color: #ffb347; box-shadow: 0 0 14px rgba(255, 120, 40, .6); }
+    .planet.fire .moon { background: #ffd28a; box-shadow: 0 0 14px #ff6a1f, 0 0 4px #fff; }
+    .planet.fire .ember { position: absolute; z-index: 3; width: 4px; height: 4px; border-radius: 50%; background: #ffc061; box-shadow: 0 0 8px #ff5a1f; left: var(--x); bottom: 40px; opacity: 0; animation: ember 3.2s linear infinite; animation-delay: var(--e); }
+    @keyframes ember { 15% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--dx), -120px); } }
+    .planet.fire:hover h2 { color: #ffb347; text-shadow: 0 0 18px rgba(255, 90, 31, .7); }
+    @media (prefers-reduced-motion: reduce) { .planet.fire .corona, .planet.fire .ember, .planet.fire .sphere::before { animation: none; } .planet.fire .ember { display: none; } }
+
     /* Pianeta "in arrivo" */
     .planet.soon { cursor: default; }
     .planet.soon:hover { background: none; }
@@ -225,6 +259,7 @@
                        "dado", "carte", "trofeo", "microfono"
          link        → indirizzo del gioco
          colore      → colore del pianeta (formato #RRGGBB)
+         stile       → facoltativo: "fuoco" per un pianeta in fiamme
        ===================================================== */
     const GIOCHI = [
       {
@@ -248,6 +283,14 @@
         link: "https://yeezikdev.github.io/sintonia",
         colore: "#1fc8a8"
       },
+      {
+        nome: "The Game",
+        descrizione: "Una sola squadra contro 98 carte: calatele tutte sulle quattro pile, senza dire i numeri.",
+        icona: "carte",
+        link: "https://yeezikdev.github.io/the-game",
+        colore: "#ff5a1f",
+        stile: "fuoco"
+      },
     ];
 
     // Mostra il pianeta "Nuovi giochi in arrivo" in fondo (true / false)
@@ -270,7 +313,7 @@
     const grid = document.getElementById("grid");
     GIOCHI.forEach((g, i) => {
       const a = document.createElement("a");
-      a.className = "planet";
+      a.className = "planet" + (g.stile === "fuoco" ? " fire" : "");
       a.href = g.link;
       a.target = "_blank";
       a.rel = "noopener";
@@ -278,10 +321,12 @@
       a.style.setProperty("--d", (-i * 2) + "s");
       a.innerHTML = `
         <div class="orbit">
+          ${g.stile === "fuoco" ? '<div class="corona"></div><div class="corona c2"></div>' : ''}
           <div class="ring back"></div>
           <div class="sphere"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true">${ICONE[g.icona] || ICONE.dado}</svg></div>
           <div class="ring front"></div>
           <div class="moon" style="animation-delay:${-i * 1.7}s"></div>
+          ${g.stile === "fuoco" ? [[38,-.2,-14],[52,1.1,10],[64,2.2,-6],[46,.6,16],[58,1.7,-18]].map(([x,e,dx])=>`<span class="ember" style="--x:${x}%;--e:${e}s;--dx:${dx}px"></span>`).join("") : ""}
         </div>
         <h2></h2><p></p><span class="go">Atterra</span>`;
       a.querySelector("h2").textContent = g.nome;
