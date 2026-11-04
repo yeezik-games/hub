@@ -201,6 +201,78 @@
     .native-share { width: 100%; padding: 12px; border-radius: 14px; cursor: pointer; background: transparent; color: var(--ice); border: 1px solid rgba(191, 230, 255, .3); font-weight: 600; }
     .native-share[hidden] { display: none; }
 
+    /* ---------- Profilo pilota ---------- */
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+    .pilot-btn {
+      display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
+      font-family: var(--f-display); font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--ice); background: rgba(191, 230, 255, .06); border: 1px solid rgba(191, 230, 255, .4); border-radius: 999px; padding: 8px 18px 8px 8px;
+      transition: transform .2s, background .2s;
+    }
+    .pilot-btn:hover { transform: translateY(-2px); background: rgba(191, 230, 255, .12); }
+    .pilot-btn .mini { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--pc, #33406b); color: var(--ice); font-size: 12px; letter-spacing: 0; box-shadow: 0 0 14px -2px var(--pc, transparent); }
+    .pilot-btn .mini svg { width: 16px; height: 16px; }
+    .pilot-btn .lv { color: var(--muted); letter-spacing: .14em; }
+
+    .sheet.wide { width: min(100%, 460px); max-height: min(88vh, 860px); overflow-y: auto; gap: 18px; text-align: left; justify-items: stretch; padding: 28px 22px 22px; overscroll-behavior: contain; }
+    .sheet.wide h3 { text-align: center; }
+    .back-btn { position: absolute; top: 14px; left: 14px; width: 34px; height: 34px; border-radius: 50%; border: 0; cursor: pointer; background: rgba(255, 255, 255, .08); color: var(--text); }
+    .back-btn[hidden] { display: none; }
+
+    .id-card { display: grid; justify-items: center; gap: 8px; text-align: center; padding-top: 6px; }
+    .lvl-ring { position: relative; width: 132px; height: 132px; }
+    .lvl-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .lvl-ring .track { stroke: rgba(191, 230, 255, .12); }
+    .lvl-ring .fill { stroke: var(--pc); transition: stroke-dashoffset 1.2s cubic-bezier(.2, .8, .2, 1); filter: drop-shadow(0 0 6px var(--pc)); }
+    .lvl-ring .av {
+      position: absolute; inset: 16px; border-radius: 50%; display: grid; place-items: center;
+      background: radial-gradient(circle at 32% 30%, rgba(255,255,255,.55), transparent 38%), radial-gradient(circle at 70% 75%, rgba(0,0,0,.55), transparent 60%), var(--pc);
+      box-shadow: 0 0 36px -6px var(--pc), inset -8px -10px 24px rgba(0,0,0,.45);
+      font-family: var(--f-display); font-weight: 700; font-size: 34px; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,.5);
+    }
+    .lvl-badge { position: absolute; left: 50%; bottom: -6px; transform: translateX(-50%); white-space: nowrap; font-family: var(--f-display); font-size: 10px; font-weight: 700; letter-spacing: .16em; padding: 5px 10px; border-radius: 999px; background: var(--ice); color: var(--void); }
+    .id-name { font-family: var(--f-display); font-weight: 700; font-size: 19px; letter-spacing: .04em; margin-top: 8px; display: flex; align-items: center; gap: 8px; }
+    .dev-tag { font-size: 9px; letter-spacing: .14em; padding: 3px 7px; border-radius: 6px; background: #7cff6b; color: var(--void); }
+    .id-title { font-family: var(--f-display); font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--pc); }
+    .xp-bar { width: 100%; display: grid; gap: 6px; }
+    .xp-bar .bar { height: 8px; border-radius: 99px; background: rgba(191, 230, 255, .1); overflow: hidden; }
+    .xp-bar .bar i { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, color-mix(in srgb, var(--pc) 60%, #fff), var(--pc)); transition: width 1.2s cubic-bezier(.2, .8, .2, 1); }
+    .xp-bar .meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+    .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .tile { padding: 12px 8px; border-radius: 16px; text-align: center; background: rgba(255, 255, 255, .04); border: 1px solid rgba(191, 230, 255, .1); }
+    .tile b { display: block; font-family: var(--f-display); font-size: 18px; font-variant-numeric: tabular-nums; }
+    .tile span { font-size: 11px; color: var(--muted); }
+
+    .sec-title { font-family: var(--f-display); font-size: 10px; letter-spacing: .28em; text-transform: uppercase; color: var(--ice); opacity: .85; }
+    .fav { font-size: 14px; color: var(--muted); margin-top: -8px; }
+    .fav b { color: var(--text); }
+    .bars { display: grid; gap: 12px; }
+    .brow { display: grid; gap: 6px; }
+    .brow .top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: 14px; }
+    .brow .top b { font-weight: 700; }
+    .brow .top span { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .brow .bar { height: 12px; border-radius: 99px; background: rgba(191, 230, 255, .07); overflow: hidden; }
+    .brow .bar i { display: block; height: 100%; width: 0; border-radius: inherit; background: var(--gc); box-shadow: 0 0 12px -2px var(--gc); transition: width 1s cubic-bezier(.2, .8, .2, 1); }
+    .empty { text-align: center; color: var(--muted); font-size: 14px; line-height: 1.55; padding: 10px 0; }
+
+    .friends { display: grid; gap: 6px; }
+    .friend { display: flex; align-items: center; gap: 12px; width: 100%; padding: 8px 12px 8px 8px; border-radius: 14px; border: 0; cursor: pointer; background: rgba(255, 255, 255, .04); color: var(--text); text-align: left; transition: background .2s; }
+    .friend:hover { background: rgba(255, 255, 255, .08); }
+    .friend .mini { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--fc); color: #fff; font-family: var(--f-display); font-size: 13px; font-weight: 700; text-shadow: 0 1px 4px rgba(0,0,0,.5); flex: none; }
+    .friend .nm { flex: 1; min-width: 0; font-weight: 700; overflow: hidden; text-overflow: ellipsis; }
+    .friend .lv { font-family: var(--f-display); font-size: 10px; letter-spacing: .14em; color: var(--muted); }
+
+    .xp-help { font-size: 12px; color: var(--faint); line-height: 1.5; text-align: center; }
+    .login { display: grid; gap: 10px; }
+    .login input { padding: 13px 14px; border-radius: 14px; border: 1px solid rgba(191, 230, 255, .2); background: rgba(255, 255, 255, .05); color: var(--text); font: 15px var(--f-body); }
+    .btn-main { padding: 13px; border-radius: 14px; border: 0; cursor: pointer; background: var(--ice); color: var(--void); font-weight: 700; font-size: 14px; }
+    .btn-ghost { padding: 12px; border-radius: 14px; cursor: pointer; background: transparent; color: var(--ice); border: 1px solid rgba(191, 230, 255, .3); font-weight: 600; font-size: 14px; }
+    .btn-main:disabled { opacity: .6; cursor: wait; }
+    .or { text-align: center; font-size: 12px; color: var(--faint); }
+    .err { color: #ff8a8a; font-size: 13px; text-align: center; min-height: 1em; }
+    .logout { justify-self: center; background: none; border: 0; cursor: pointer; color: var(--faint); font-size: 12px; text-decoration: underline; }
+
     :focus-visible { outline: 2px solid var(--ice); outline-offset: 3px; }
 
     @media (prefers-reduced-motion: reduce) {
@@ -222,10 +294,16 @@
       <span class="coord" id="coord">SISTEMA YZK · PIANETI ABITATI</span>
       <h1>Yeezik Games Hub</h1>
       <p class="sub">Ogni pianeta è un gioco. Scegline uno e porta i tuoi amici in orbita.</p>
-      <button class="share-btn" id="openShare" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
-        Condividi
-      </button>
+      <div class="actions">
+        <button class="share-btn" id="openShare" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>
+          Condividi
+        </button>
+        <button class="pilot-btn" id="openPilot" type="button">
+          <span class="mini" id="pilotMini"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>
+          <span id="pilotLabel">Accedi</span>
+        </button>
+      </div>
     </header>
 
     <div class="grid" id="grid"></div>
@@ -247,6 +325,16 @@
     </div>
   </div>
 
+  <div class="overlay" id="pilotOverlay" aria-hidden="true">
+    <div class="sheet wide" role="dialog" aria-modal="true" aria-labelledby="pilotTitle">
+      <button class="back-btn" id="pilotBack" type="button" aria-label="Torna al mio profilo" hidden>←</button>
+      <button class="close" id="closePilot" type="button" aria-label="Chiudi">✕</button>
+      <h3 id="pilotTitle">Profilo pilota</h3>
+      <div id="pilotBody" style="display:grid;gap:18px"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
     /* =====================================================
@@ -421,6 +509,189 @@
       nativeBtn.hidden = false;
       nativeBtn.addEventListener("click", () => {
         navigator.share({ title: "Yeezik Games Hub", text: "Giochiamo insieme!", url: LINK_CONDIVISIONE }).catch(() => {});
+      });
+    }
+
+    /* =====================================================
+       PROFILO PILOTA: livello, statistiche, amici
+       Stesso account di Sintonia, The Game, Non ho mai…
+       XP: 20 a partita · +30 se vinci / arrivi primo · +10 se arrivi 2° o 3°
+       ===================================================== */
+    const GIOCHI_STATS = {
+      sintonia: { nome: "Sintonia", colore: "#1fc8a8" },
+      thegame:  { nome: "The Game", colore: "#ff5a1f" },
+      nonhomai: { nome: "Non ho mai", colore: "#ff4fa3" },
+      chidinoi: { nome: "Chi di noi", colore: "#4f9dff" }
+    };
+    const TITOLI = [[1, "Recluta"], [5, "Esploratore"], [10, "Pilota"], [20, "Veterano"], [35, "Comandante"], [50, "Leggenda"]];
+
+    const SB_URL = "https://ncwuekrvibuynvozqyqx.supabase.co";
+    const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5jd3Vla3J2aWJ1eW52b3pxeXF4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM2MDM0NTQsImV4cCI6MjEwOTE3OTQ1NH0.bQ84kmd0dDVTykZgCceOPjMHXE3y99lwP8RLEQozQJU";
+    const sb = window.supabase ? supabase.createClient(SB_URL, SB_KEY) : null;
+
+    const pOverlay = document.getElementById("pilotOverlay");
+    const pBody = document.getElementById("pilotBody");
+    const pBack = document.getElementById("pilotBack");
+    const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    const fmt = n => n.toLocaleString("it-IT");
+
+    function livello(xp) {
+      let lv = 1, base = 0, serve = 100;
+      while (xp >= base + serve) { base += serve; lv++; serve = 100 + 50 * (lv - 1); }
+      const titolo = TITOLI.filter(([min]) => lv >= min).pop()[1];
+      return { lv, dentro: xp - base, serve, titolo, pct: (xp - base) / serve };
+    }
+
+    let mioProfilo = null;
+
+    async function aggiornaBottone() {
+      const label = document.getElementById("pilotLabel"), mini = document.getElementById("pilotMini");
+      const btn = document.getElementById("openPilot");
+      if (!sb) return;
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) { mioProfilo = null; label.textContent = "Accedi"; btn.style.removeProperty("--pc"); return; }
+      const { data } = await sb.rpc("hub_player");
+      mioProfilo = data || null;
+      if (!mioProfilo) { label.textContent = "Profilo"; return; }
+      const L = livello(mioProfilo.xp);
+      btn.style.setProperty("--pc", mioProfilo.color);
+      mini.textContent = mioProfilo.username[0].toUpperCase();
+      mini.style.color = "#fff";
+      label.innerHTML = `${esc(mioProfilo.username)} <span class="lv">LV ${L.lv}</span>`;
+    }
+
+    function disegnaProfilo(p, mio) {
+      const L = livello(p.xp);
+      const giochi = (p.games || []).slice().sort((a, b) => b.played - a.played);
+      const tot = giochi.reduce((s, g) => s + g.played, 0);
+      const vinte = giochi.reduce((s, g) => s + g.wins, 0);
+      const C = 2 * Math.PI * 58;
+      pBack.hidden = mio;
+      document.getElementById("pilotTitle").textContent = mio ? "Il tuo profilo" : "Profilo amico";
+
+      const barre = giochi.length ? giochi.map(g => {
+        const info = GIOCHI_STATS[g.game] || { nome: g.game, colore: "#bfe6ff" };
+        const pct = Math.round(g.played / tot * 100);
+        return `<div class="brow" style="--gc:${info.colore}">
+          <div class="top"><b>${esc(info.nome)}</b><span>${pct}% · ${g.played} ${g.played === 1 ? "partita" : "partite"}</span></div>
+          <div class="bar"><i data-w="${g.played / giochi[0].played * 100}"></i></div>
+        </div>`;
+      }).join("") : `<p class="empty">Ancora nessuna partita registrata.<br>Atterra su un pianeta e gioca con l'account!</p>`;
+
+      const preferito = giochi[0] ? (GIOCHI_STATS[giochi[0].game] || { nome: giochi[0].game }).nome : null;
+
+      pBody.style.setProperty("--pc", p.color);
+      pBody.innerHTML = `
+        <div class="id-card">
+          <div class="lvl-ring">
+            <svg viewBox="0 0 132 132" aria-hidden="true"><circle class="track" cx="66" cy="66" r="58" fill="none" stroke-width="7"/><circle class="fill" cx="66" cy="66" r="58" fill="none" stroke-width="7" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C}"/></svg>
+            <div class="av">${esc(p.username[0].toUpperCase())}</div>
+            <span class="lvl-badge">LV ${L.lv}</span>
+          </div>
+          <div class="id-name">${esc(p.username)}${p.badge === "dev" ? '<span class="dev-tag">DEV</span>' : ""}</div>
+          <div class="id-title">${L.titolo}</div>
+        </div>
+        <div class="xp-bar">
+          <div class="bar"><i></i></div>
+          <div class="meta"><span>${fmt(L.dentro)} / ${fmt(L.serve)} XP</span><span>${fmt(L.serve - L.dentro)} al LV ${L.lv + 1}</span></div>
+        </div>
+        <div class="tiles">
+          <div class="tile"><b>${fmt(tot)}</b><span>partite</span></div>
+          <div class="tile"><b>${fmt(vinte)}</b><span>vittorie</span></div>
+          <div class="tile"><b>${fmt(p.xp)}</b><span>XP totali</span></div>
+        </div>
+        <div class="sec-title">I giochi più giocati</div>
+        ${preferito ? `<p class="fav">Pianeta preferito: <b>${esc(preferito)}</b></p>` : ""}
+        <div class="bars">${barre}</div>
+        ${mio ? `<div class="sec-title">Amici</div><div class="friends" id="friendList"><p class="empty">Carico…</p></div>
+        <p class="xp-help">XP: 20 a partita, +30 se vinci o arrivi primo, +10 sul podio.</p>
+        <button class="logout" id="logoutBtn" type="button">Esci dall'account</button>` : ""}`;
+
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        pBody.querySelector(".fill").style.strokeDashoffset = C * (1 - L.pct);
+        pBody.querySelector(".xp-bar i").style.width = (L.pct * 100) + "%";
+        pBody.querySelectorAll(".brow i").forEach(i => i.style.width = i.dataset.w + "%");
+      }));
+
+      if (mio) {
+        document.getElementById("logoutBtn").onclick = async () => { await sb.auth.signOut(); await aggiornaBottone(); disegnaLogin(); };
+        caricaAmici();
+      }
+    }
+
+    async function caricaAmici() {
+      const box = document.getElementById("friendList");
+      const { data, error } = await sb.rpc("hub_friends");
+      if (!box) return;
+      if (error || !data || !data.length) { box.innerHTML = `<p class="empty">Nessun amico ancora: aggiungili da un gioco.</p>`; return; }
+      data.sort((a, b) => b.xp - a.xp);
+      box.innerHTML = "";
+      data.forEach(f => {
+        const b = document.createElement("button");
+        b.type = "button"; b.className = "friend"; b.style.setProperty("--fc", f.color);
+        b.innerHTML = `<span class="mini">${esc(f.username[0].toUpperCase())}</span><span class="nm">${esc(f.username)}</span><span class="lv">LV ${livello(f.xp).lv}</span>`;
+        b.onclick = () => apriProfilo(f.id);
+        box.appendChild(b);
+      });
+    }
+
+    function disegnaLogin(msg) {
+      pBack.hidden = true;
+      document.getElementById("pilotTitle").textContent = "Accedi";
+      pBody.innerHTML = `
+        <p class="hint" style="text-align:center">Usa lo stesso account dei giochi per vedere livello e statistiche.</p>
+        <button class="btn-ghost" id="gLogin" type="button">Continua con Google</button>
+        <div class="or">oppure con email</div>
+        <form class="login" id="mailLogin">
+          <input type="email" id="lEmail" placeholder="Email" autocomplete="email" required>
+          <input type="password" id="lPass" placeholder="Password" autocomplete="current-password" required>
+          <button class="btn-main" type="submit">Accedi</button>
+          <p class="err" id="lErr">${esc(msg || "")}</p>
+        </form>`;
+      document.getElementById("gLogin").onclick = () =>
+        sb.auth.signInWithOAuth({ provider: "google", options: { redirectTo: location.origin + location.pathname + "?profilo=1" } });
+      document.getElementById("mailLogin").onsubmit = async e => {
+        e.preventDefault();
+        const btn = e.target.querySelector("button"); btn.disabled = true;
+        const { error } = await sb.auth.signInWithPassword({ email: document.getElementById("lEmail").value.trim(), password: document.getElementById("lPass").value });
+        btn.disabled = false;
+        if (error) { document.getElementById("lErr").textContent = "Email o password non corretti."; return; }
+        await aggiornaBottone(); apriProfilo();
+      };
+    }
+
+    async function apriProfilo(id) {
+      pOverlay.classList.add("open"); pOverlay.setAttribute("aria-hidden", "false");
+      if (!sb) { pBody.innerHTML = `<p class="empty">Connessione non disponibile.</p>`; return; }
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) return disegnaLogin();
+      if (!id && mioProfilo) return disegnaProfilo(mioProfilo, true);
+      pBody.innerHTML = `<p class="empty">Carico…</p>`;
+      const { data, error } = await sb.rpc("hub_player", id ? { p_user: id } : {});
+      if (error) { pBody.innerHTML = `<p class="empty">Questo profilo non è visibile.</p>`; return; }
+      if (!data) {
+        pBody.innerHTML = `<p class="empty">Il tuo account non ha ancora un nome pilota.<br>Entra in un gioco (per esempio Sintonia) e scegli il tuo nome.</p>`;
+        return;
+      }
+      if (!id) mioProfilo = data;
+      disegnaProfilo(data, !id || id === session.user.id);
+    }
+    function chiudiProfilo() { pOverlay.classList.remove("open"); pOverlay.setAttribute("aria-hidden", "true"); }
+
+    document.getElementById("openPilot").addEventListener("click", () => apriProfilo());
+    document.getElementById("closePilot").addEventListener("click", chiudiProfilo);
+    pBack.addEventListener("click", () => apriProfilo());
+    pOverlay.addEventListener("click", e => { if (e.target === pOverlay) chiudiProfilo(); });
+    document.addEventListener("keydown", e => { if (e.key === "Escape") chiudiProfilo(); });
+
+    if (sb) {
+      sb.auth.onAuthStateChange(ev => { if (ev === "SIGNED_IN" || ev === "SIGNED_OUT") setTimeout(aggiornaBottone, 0); });
+      aggiornaBottone().then(() => {
+        if (new URLSearchParams(location.search).has("profilo")) {
+          history.replaceState(null, "", location.pathname);
+          document.body.classList.remove("run"); document.body.classList.add("done");
+          apriProfilo();
+        }
       });
     }
   </script>
