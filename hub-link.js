@@ -3,7 +3,7 @@
   ------------------------------------------
   Uso in qualsiasi gioco:
     1. nel <head> o in fondo al <body>:
-       <script src="https://yeezikdev.github.io/yeezik-gameshub/hub-link.js" defer></script>
+       <script src="https://yeezik-games.github.io/hub/hub-link.js" defer></script>
     2. dove vuoi il riquadro:
        <yeezik-hub-link></yeezik-hub-link>
 
@@ -13,7 +13,7 @@
 (function () {
   if (customElements.get("yeezik-hub-link")) return;
 
-  const HUB_URL = "https://yeezikdev.github.io/yeezik-gameshub/";
+  const HUB_URL = "https://yeezik-games.github.io/hub/";
 
   const CSS = `
     :host { display: block; width: 100%; max-width: 420px; margin: 22px auto 6px; }
